@@ -3,11 +3,21 @@ import tracker.util.StatusTask;
 
 
 public class Task {
+
+
     private int id;  //так как к полям я не могу обращаться из за private я обращаюсь к ним через методы
     private StatusTask status;
     private String title;
     private String description;
+    public Task()
+    {
 
+    }
+    public Task(String title, String description)
+    {
+        this.title = title;
+        this.description = description;
+    }
     public void updateID(int ids)
     {
         id = ids;
