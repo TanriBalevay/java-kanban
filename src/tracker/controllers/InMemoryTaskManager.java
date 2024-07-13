@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    public HistoryManager historyManager = Managers.getDefaultHistory();
+    private HistoryManager historyManager = Managers.getDefaultHistory();
     private int nextId = 1;
     private HashMap<Integer, Task> simpleTask = new HashMap<>();
     private HashMap<Integer, Epic> collectionTask = new HashMap<>();
@@ -202,5 +202,8 @@ public class InMemoryTaskManager implements TaskManager {
         checkStatusEpic(ids);
     }
 
-    
+    @Override
+    public HistoryManager getHistory(){
+       return historyManager;
+    }
 }

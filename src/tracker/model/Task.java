@@ -13,6 +13,13 @@ public class Task {
     {
 
     }
+    public Task(Task task)
+    {
+        this.id = task.getID();
+        this.status = task.getSTATUS();
+        this.title = task.getTITLE();
+        this.description = task.getDescription();
+    }
     public Task(String title, String description)
     {
         this.title = title;
@@ -22,6 +29,8 @@ public class Task {
     {
         id = ids;
     }
+
+
 
     public void updateSTATUS(StatusTask status1)
     {

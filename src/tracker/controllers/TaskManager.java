@@ -55,4 +55,8 @@ public interface TaskManager {
 
     void removeItemTask(int id) // Удаление по идентификатору подзадачи.
     ;
+
+
+    HistoryManager getHistory() //возвращает историю задач полученых из get***(id)
+            ;
 }

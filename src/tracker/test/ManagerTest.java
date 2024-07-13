@@ -104,8 +104,8 @@ public class ManagerTest {
         ArrayList <Integer> checkID = new ArrayList<>();
 
         task = new Task();
-        task = taskManager.getTask(1);
-        checkID.add(1);
+        task = taskManager.getTask(0);
+        checkID.add(0);
         task = taskManager.getTask(5);
         checkID.add(5);
         task = taskManager.getTask(3);
@@ -116,8 +116,8 @@ public class ManagerTest {
         checkID.add(2);
 
 
-        for (int i = 0; i < taskManager.historyManager.getHistory().size(); i++) {
-            Assertions.assertEquals(checkID.get(i),taskManager.historyManager.getHistory().get(i).getID(),"История работает неправильно");
+        for (int i = 0; i < taskManager.getHistory().getHistory().size(); i++) {
+            Assertions.assertEquals(checkID.get(i),taskManager.getHistory().getHistory().get(i).getID(),"История работает неправильно");
         }
 
         //При обращение к getTask я сам сохранил историю посещения и сравнил её с той что храниться в InMemoryTaskManager

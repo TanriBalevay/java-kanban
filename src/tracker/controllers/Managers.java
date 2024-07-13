@@ -10,9 +10,9 @@ public class Managers {
         return taskManager;
     }
 
-    static InMemoryHistoryManager getDefaultHistory()
+    static HistoryManager getDefaultHistory()
     {
-        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+        HistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
         return inMemoryHistoryManager;
     }
 }
