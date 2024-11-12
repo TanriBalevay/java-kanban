@@ -8,6 +8,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         Task item;
         Node next;
         Node prev;
+
         Node(Node prev, Task element, Node next) {
             this.item = element;
             this.next = next;
@@ -20,12 +21,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     Node last;
 
     private Integer size;
+
     @Override
     public void add(Task task) {
         Node node = history.get(task.getID());
         size = history.size();
         history.put(task.getID(), linkLast(task));
-        if(size == history.size()){
+        if (size == history.size()) {
             removeNode(node);
         }
     }
@@ -40,7 +42,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
         ArrayList<Task> historyCopy = new ArrayList<>();
         Node current = first;
-        while (current != null){
+        while (current != null) {
             historyCopy.add(current.item);
             current = current.next;
         }
@@ -52,7 +54,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         final Node l = last;
         final Node newNode = new Node(l, task, null);
         last = newNode;
-        if (l == null){
+        if (l == null) {
             first = newNode;
         } else {
             l.next = newNode;
@@ -62,7 +64,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private void removeNode(Node node) {
 
-        if(node != null) {
+        if (node != null) {
             final Node next = node.next;
             final Node prev = node.prev;
             if (prev == null) {
