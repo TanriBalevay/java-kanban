@@ -10,18 +10,15 @@ public class Epic extends Task {
         super(title, description);
     }
 
-    public void updateITEMIDS(ArrayList<Integer> itemIds1)
-    {
+    public void updateITEMIDS(ArrayList<Integer> itemIds1) {
         itemIds = itemIds1;
     }
 
-    public ArrayList<Integer> getITEMIDS()
-    {
+    public ArrayList<Integer> getITEMIDS() {
         return itemIds;
     }
 
-    public void deleteArraylist()
-    {
+    public void deleteArraylist() {
         itemIds.clear();
     }
 }
