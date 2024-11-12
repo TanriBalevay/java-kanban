@@ -26,7 +26,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkToEpicWithTheSameID(){
+    void checkToEpicWithTheSameID() {
         Epic epic = new Epic("Test addNewTask","Test addNewTask description");
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         taskManager.add(epic);
@@ -38,7 +38,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkToSubtaskWithTheSameID(){
+    void checkToSubtaskWithTheSameID() {
         Epic epic = new Epic("Test addNewTask","Test addNewTask description");
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         int add = taskManager.add(epic);
@@ -53,14 +53,14 @@ public class TaskTest {
     }
 
     @Test
-    void checkEpicInSubtask(){
+    void checkEpicInSubtask() {
         Epic epic = new Epic("Test addNewTask","Test addNewTask description");
         //проверяю что эпик не наследует подкласс, только таким образом можно добавить в мой перегруженый метод
         Assertions.assertFalse(Subtask.class.isAssignableFrom(epic.getClass()),"Эпик можно добавить в подклас");
     }
 
     @Test
-    void checkSubtaskInEpic(){
+    void checkSubtaskInEpic() {
         Subtask subtask = new Subtask("Test addNewTask","Test addNewTask description");
         //проверяю что подкласс не наследует эпик, только таким образом можно добавить в мой перегруженый метод
         Assertions.assertFalse(Epic.class.isAssignableFrom(subtask.getClass()),"Подклас можно добавить в эпик");
