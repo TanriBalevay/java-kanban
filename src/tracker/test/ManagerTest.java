@@ -103,23 +103,78 @@ public class ManagerTest {
 
         ArrayList <Integer> checkID = new ArrayList<>();
 
-        task = new Task();
-        task = taskManager.getTask(0);
-        checkID.add(0);
-        task = taskManager.getTask(5);
-        checkID.add(5);
-        task = taskManager.getTask(3);
-        checkID.add(3);
-        task = taskManager.getTask(4);
-        checkID.add(4);
-        task = taskManager.getTask(2);
-        checkID.add(2);
 
+        taskManager.getTask(1);
+        taskManager.getTask(5);// 1 элемент
+        taskManager.getTask(4);
+        taskManager.getTask(1);
+        taskManager.getTask(4);// 2 элемент
+        taskManager.getTask(1);// 3 элемент
+
+
+
+        checkID.add(5);
+        checkID.add(4);
+        checkID.add(1);
 
         for (int i = 0; i < taskManager.getHistory().getHistory().size(); i++) {
-            Assertions.assertEquals(checkID.get(i),taskManager.getHistory().getHistory().get(i).getID(),"История работает неправильно");
+           //System.out.println(taskManager.getHistory().getHistory().get(i).getID());
+           Assertions.assertEquals(checkID.get(i),taskManager.getHistory().getHistory().get(i).getID(),"История работает неправильно");
         }
 
         //При обращение к getTask я сам сохранил историю посещения и сравнил её с той что храниться в InMemoryTaskManager
+    }
+
+    @Test
+    void checkSuptaskID (){
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
+        int idEpic;
+
+        Epic epic = new Epic("Epictest1","Epictest1");
+        epic.updateSTATUS(StatusTask.NEW);
+        idEpic = taskManager.add(epic);
+
+        Subtask subtask = new Subtask("Subtasktest1","Subtasktest1");
+        taskManager.add(subtask, idEpic, StatusTask.DONE);
+
+        taskManager.removeItemTask(2);
+
+        Assertions.assertEquals(-1,subtask.getID(),"Удаление работает не правильно"); //все ID при удаление становяться -1
+    }
+
+    @Test
+    void checkEpicIdSubTask(){
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
+        int idEpic;
+
+        Epic epic = new Epic("Epictest1","Epictest1");
+        epic.updateSTATUS(StatusTask.NEW);
+        idEpic = taskManager.add(epic);
+
+        Subtask subtask = new Subtask("Subtasktest1","Subtasktest1");
+        taskManager.add(subtask, idEpic, StatusTask.DONE);
+
+        Subtask subtask1 = new Subtask("Subtasktest2","Subtasktest2");
+        taskManager.add(subtask1, idEpic, StatusTask.DONE);
+
+        Subtask subtask2 = new Subtask("Subtasktest3","Subtasktest3");
+        taskManager.add(subtask2, idEpic, StatusTask.DONE);
+
+        Subtask subtask4 = new Subtask("Subtasktest4","Subtasktest4");
+        taskManager.add(subtask4, idEpic, StatusTask.DONE);
+
+        taskManager.removeItemTask(3);
+
+        ArrayList<Integer> test = new ArrayList<>();
+
+        test.add(2);
+        test.add(4);
+        test.add(5);
+
+        for(int i = 0; i < 3; i++) {
+            Assertions.assertEquals(test.get(i),taskManager.getItemTask(epic).get(i).getID(),"Старые ID подзадач не удаляються");
+        }
     }
 }

@@ -1,12 +1,13 @@
 package tracker.controllers;
 import tracker.model.Task;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public interface HistoryManager {
-    void add(Task task)
-        ;
+    void add(Task task);
 
-    ArrayList <Task> getHistory() //последние 10 просмотреных задач
-             ;
+    void remove(int id);
+
+    void clearID(int id);
+
+    List<Task> getHistory();
 }

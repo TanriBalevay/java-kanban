@@ -72,37 +72,7 @@ public class InMemoryTaskManager implements TaskManager {
         checkStatusEpic(item.getCOLID());
     }
 
-    private void checkStatusEpic (int colId)  //вынес отдельно просчёт статуса эпика чтобы не дублировать его в коде
-    {
-        Subtask item;
-        Epic collection = collectionTask.get(colId);
-        int statusDONE = 0;
-        int statusNEW = 0;
-        for (int i=0; i < collection.getITEMIDS().size(); i++)
-        {
-            item = itemTask.get(collection.getITEMIDS().get(i));
-            if (item.getSTATUS() == StatusTask.DONE)
-            {
-                statusDONE += 1;
-            }
-            if (item.getSTATUS() == StatusTask.NEW)
-            {
-                statusNEW += 1;
-            }
-        }
-        if (collection.getITEMIDS().size() == statusDONE)
-        {
-            collection.updateSTATUS(StatusTask.DONE);
-        }else
-        {
-            if(collection.getITEMIDS().size() == statusNEW)
-            {
-                collection.updateSTATUS(StatusTask.NEW);
-            } else {
-                collection.updateSTATUS(StatusTask.IN_PROGRESS);
-            }
-        }
-    }
+
 
     @Override
     public ArrayList<Task> getTasks() {             // Получение списка всех простых задач
@@ -155,12 +125,21 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void clearTask() //Удаление всех задач
     {
+        for(Task task: simpleTask.values()){
+            historyManager.clearID(task.getID());
+        }
         simpleTask.clear();
     }
 
     @Override
     public void clearEpic() //Удаление всех эпик задач и так как эпики удалены то подзадачи тоже
     {
+        for(Epic epic: collectionTask.values()){
+            historyManager.clearID(epic.getID());
+        }
+        for(Subtask subtask: itemTask.values()){
+            historyManager.clearID(subtask.getID());
+        }
         collectionTask.clear();
         itemTask.clear();
     }
@@ -173,12 +152,16 @@ public class InMemoryTaskManager implements TaskManager {
             epics.updateSTATUS(StatusTask.NEW);
             epics.deleteArraylist();
         }
+        for(Subtask subtask: itemTask.values()){
+            historyManager.clearID(subtask.getID());
+        }
         itemTask.clear();
     }
 
     @Override
-    public void removeSimpleTask(int id)  // Удаление по идентификатору.
+    public void removeSimpleTask(int id)  // Удаление по идентификатору простой задачи.
     {
+        historyManager.clearID(id);
         simpleTask.remove(id);
     }
 
@@ -187,23 +170,63 @@ public class InMemoryTaskManager implements TaskManager {
     {
         for(int idSub : collectionTask.get(id).getITEMIDS())
         {
+           historyManager.clearID(idSub);
            itemTask.remove(idSub);
         }
+        historyManager.clearID(id);
         collectionTask.remove(id);
     }
 
     @Override
     public void removeItemTask(int id) // Удаление по идентификатору подзадачи.
     {
-        Subtask subtasks = itemTask.get(id);
-        int ids = subtasks.getCOLID();
+        Subtask subtask = itemTask.get(id);
+        int ids = subtask.getCOLID();
         itemTask.remove(id);
+        historyManager.clearID(id);
+        for(int i = 0; i < collectionTask.get(ids).getITEMIDS().size(); i++){
+            if(id == collectionTask.get(ids).getITEMIDS().get(i)){
+                collectionTask.get(ids).getITEMIDS().remove(i);
+            }
+        }
 
         checkStatusEpic(ids);
+        subtask.updateCOLID(-1);
+        subtask.updateID(-1);
+        subtask.updateSTATUS(null);
     }
 
     @Override
     public HistoryManager getHistory(){
        return historyManager;
+    }
+
+    private void checkStatusEpic (int colId)  //вынес отдельно просчёт статуса эпика чтобы не дублировать его в коде
+    {
+        Subtask item;
+        Epic collection = collectionTask.get(colId);
+        int statusDONE = 0;
+        int statusNEW = 0;
+        for (int i = 0; i < collection.getITEMIDS().size(); i++) {
+            item = itemTask.get(collection.getITEMIDS().get(i));
+            if (item.getSTATUS() == StatusTask.DONE) {
+                statusDONE += 1;
+            }
+            if (item.getSTATUS() == StatusTask.NEW) {
+                statusNEW += 1;
+            }
+        }
+        if(collection.getITEMIDS().size() != 0) {
+            if (collection.getITEMIDS().size() == statusDONE) {
+                collection.updateSTATUS(StatusTask.DONE);
+            } else {
+                if (collection.getITEMIDS().size() == statusNEW) {
+                    collection.updateSTATUS(StatusTask.NEW);
+                } else {
+                    collection.updateSTATUS(StatusTask.IN_PROGRESS);
+                }
+            }
+        }else collection.updateSTATUS(StatusTask.NEW);
+
     }
 }
