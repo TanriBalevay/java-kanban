@@ -7,24 +7,26 @@ public class Task {
     private StatusTask status;
     private String title;
     private String description;
+
     public Task() {
 
     }
+
     public Task(Task task) {
         this.id = task.getID();
         this.status = task.getSTATUS();
         this.title = task.getTITLE();
         this.description = task.getDescription();
     }
+
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
     }
+
     public void updateID(int ids) {
         id = ids;
     }
-
-
 
     public void updateSTATUS(StatusTask status1) {
         status = status1;

@@ -3,7 +3,6 @@ package tracker.model;
 import java.util.ArrayList;
 
 public class Epic extends Task {
-
     private ArrayList<Integer> itemIds = new ArrayList<>();
 
     public Epic(String title, String description) {
