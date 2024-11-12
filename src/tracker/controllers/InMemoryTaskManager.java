@@ -111,7 +111,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearTask() {
-       for(Task task : simpleTask.values()) {
+       for (Task task : simpleTask.values()) {
            historyManager.clearID(task.getID());
        }
        simpleTask.clear();
@@ -179,7 +179,7 @@ public class InMemoryTaskManager implements TaskManager {
        return historyManager;
     }
 
-    private void checkStatusEpic (int colId) {
+    private void checkStatusEpic(int colId) {
        Subtask item;
        Epic collection = collectionTask.get(colId);
        int statusDONE = 0;
