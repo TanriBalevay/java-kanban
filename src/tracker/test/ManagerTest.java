@@ -44,8 +44,8 @@ public class ManagerTest {
         taskManager.add(task, StatusTask.NEW);
         task.updateID(1);
         boolean b = true;
-        for(Task task1 : taskManager.getTasks()){
-            if(task1.getID() != 1) {
+        for (Task task1 : taskManager.getTasks()) {
+            if (task1.getID() != 1) {
                 b = false;
             }
         }
@@ -79,7 +79,7 @@ public class ManagerTest {
         taskManager.add(task, StatusTask.NEW);
         task = new Task("Task test5","test5");
         taskManager.add(task, StatusTask.NEW);
-        ArrayList <Integer> checkID = new ArrayList<>();
+        ArrayList<Integer> checkID = new ArrayList<>();
         taskManager.getTask(1);
         taskManager.getTask(5);// 1 элемент
         taskManager.getTask(4);
@@ -129,7 +129,7 @@ public class ManagerTest {
         test.add(2);
         test.add(4);
         test.add(5);
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             Assertions.assertEquals(test.get(i),taskManager.getItemTask(epic).get(i).getID(),"Старые ID подзадач не удаляються");
         }
     }
