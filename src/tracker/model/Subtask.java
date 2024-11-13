@@ -7,13 +7,11 @@ public class Subtask extends Task {
         super(title, description);
     }
 
-    public void updateCOLID(int id)
-    {
+    public void updateCOLID(int id) {
         colId = id;
     }
 
-    public int getCOLID()
-    {
+    public int getCOLID() {
        return colId;
     }
 }
