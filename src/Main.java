@@ -1,18 +1,23 @@
 import tracker.controllers.InMemoryTaskManager;
+import tracker.file.FileBackedTaskManager;
 import tracker.model.Epic;
 import tracker.model.Subtask;
-
+import tracker.model.Task;
 import tracker.util.StatusTask;
-
-
+import java.io.File;
+import java.util.ArrayList;
 
 
 public class Main {
     public static void main(String[] args) {
-        InMemoryTaskManager taskManager = new InMemoryTaskManager();
-
         int idEpic;
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        Task task = new Task("Titlee","descriptionn");
+        FileBackedTaskManager taskManager1 = new FileBackedTaskManager(taskManager, new File("TasksFile.csv"));
+        taskManager.add(task, StatusTask.NEW);
 
+        task = new Task("Titlee1","descriptionn1");
+        taskManager.add(task, StatusTask.DONE);
 
         Epic epic = new Epic("Epictest1","Epictest1");
         epic.updateSTATUS(StatusTask.NEW);
@@ -31,31 +36,6 @@ public class Main {
         epic.updateSTATUS(StatusTask.NEW);
         taskManager.add(epic);
 
-        taskManager.getEpic(1);  //1 элемент
-        taskManager.getSubTask(3);
-        taskManager.getSubTask(2);
-        taskManager.getSubTask(3);//2 элемент
-        taskManager.getSubTask(4);//3 элемент
-        taskManager.getSubTask(2);//4 элемент
-        taskManager.getEpic(5);//5 элемент
-
-        System.out.print("Вся история: ");
-        for (int i = 0; i < taskManager.getHistory().getHistory().size(); i++) {
-            System.out.print(taskManager.getHistory().getHistory().get(i).getID() + ", ");
-        }
-        System.out.println();
-        System.out.print("Удалил одну подзадачу: ");
-        taskManager.removeItemTask(3);
-
-        for (int i = 0; i < taskManager.getHistory().getHistory().size(); i++) {
-            System.out.print(taskManager.getHistory().getHistory().get(i).getID() + ", ");
-        }
-        System.out.println();
-        System.out.print("Удалил эпик с тремя подзадачами: ");
-        taskManager.removeCollectionTask(1);
-
-        for (int i = 0; i < taskManager.getHistory().getHistory().size(); i++) {
-            System.out.print(taskManager.getHistory().getHistory().get(i).getID());
-        }
+        taskManager1.safeall();
     }
 }

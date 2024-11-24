@@ -1,9 +1,10 @@
 package tracker.model;
 import tracker.util.StatusTask;
+import tracker.util.TypeTask;
 
 
 public class Task {
-    private int id;  //так как к полям я не могу обращаться из за private я обращаюсь к ним через методы
+    private int id;
     private StatusTask status;
     private String title;
     private String description;
@@ -54,6 +55,14 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public Integer getCOLID() {
+        return null;
+    }
+
+    public TypeTask getName() {
+        return TypeTask.TASK;
     }
 
 }

@@ -1,5 +1,7 @@
 package tracker.model;
 
+import tracker.util.TypeTask;
+
 public class Subtask extends Task {
     private int colId;
 
@@ -11,7 +13,13 @@ public class Subtask extends Task {
         colId = id;
     }
 
-    public int getCOLID() {
+    @Override
+    public Integer getCOLID() {
        return colId;
+    }
+
+    @Override
+    public TypeTask getName() {
+        return TypeTask.SUBTASK;
     }
 }

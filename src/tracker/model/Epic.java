@@ -1,5 +1,7 @@
 package tracker.model;
 
+import tracker.util.TypeTask;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -19,5 +21,10 @@ public class Epic extends Task {
 
     public void deleteArraylist() {
         itemIds.clear();
+    }
+
+    @Override
+    public TypeTask getName() {
+        return TypeTask.EPIC;
     }
 }
