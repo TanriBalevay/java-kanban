@@ -31,7 +31,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     break;
                 }
                 final Task task = fromString(line);
-                if(task.getName() == TypeTask.TASK) {
+                if (task.getName() == TypeTask.TASK) {
                     uppdateMapTask(task);
                 } else if (task.getName() == TypeTask.EPIC) {
                     uppdateMapEpic((Epic) task);
