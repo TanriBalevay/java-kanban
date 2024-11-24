@@ -5,7 +5,6 @@ import tracker.model.Subtask;
 import tracker.model.Task;
 import tracker.util.StatusTask;
 import java.io.File;
-import java.util.ArrayList;
 
 
 public class Main {
