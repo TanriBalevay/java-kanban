@@ -6,11 +6,11 @@ import tracker.util.StatusTask;
 import java.util.ArrayList;
 
 public interface TaskManager {
-    void add(Task simpletask, StatusTask status);
+    void add(Task simpletask);
 
     int add(Epic collection);
 
-    void add(Subtask item, int ids, StatusTask status);
+    void add(Subtask item);
 
     void update(Task simpleTasks, StatusTask status);
 

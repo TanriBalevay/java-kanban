@@ -14,14 +14,28 @@ public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Epic> collectionTask = new HashMap<>();
     private HashMap<Integer, Subtask> itemTask = new HashMap<>();
 
-   private void generateNextId() {
+    private void generateNextId() {
        nextId++;
+    }
+
+   protected void uppdateMapTask(Task task) {
+       simpleTask.put(task.getID(), task);
+   }
+   protected void uppdateMapSubtask(Subtask task) {
+       itemTask.put(task.getID(), task);
+   }
+
+   protected void uppdateMapEpic(Epic task) {
+       collectionTask.put(task.getID(), task);
+   }
+
+   protected void uppdatenextId(int nextId) {
+        this.nextId = nextId;
    }
 
     @Override
-    public void add(Task simpletask, StatusTask status) {
+    public void add(Task simpletask) {
         simpletask.updateID(nextId);
-        simpletask.updateSTATUS(status);
         simpleTask.put(nextId, simpletask);
         generateNextId();
     }
@@ -36,10 +50,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void add(Subtask item, int ids, StatusTask status) {
+    public void add(Subtask item) {
         item.updateID(nextId);
-        item.updateSTATUS(status);
-        item.updateCOLID(ids);
         itemTask.put(nextId, item);
         generateNextId();
         Epic collection = collectionTask.get(item.getCOLID());

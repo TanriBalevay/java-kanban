@@ -1,5 +1,6 @@
 package tracker.model;
 
+import tracker.util.StatusTask;
 import tracker.util.TypeTask;
 
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 public class Epic extends Task {
     private ArrayList<Integer> itemIds = new ArrayList<>();
 
-    public Epic(String title, String description) {
-        super(title, description);
+    public Epic(String title, String description, StatusTask status) {
+        super(title, description,status);
     }
 
     public void updateITEMIDS(ArrayList<Integer> itemIds1) {

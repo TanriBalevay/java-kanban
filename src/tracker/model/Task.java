@@ -20,7 +20,8 @@ public class Task {
         this.description = task.getDescription();
     }
 
-    public Task(String title, String description) {
+    public Task(String title, String description,StatusTask status) {
+        this.status = status;
         this.title = title;
         this.description = description;
     }
