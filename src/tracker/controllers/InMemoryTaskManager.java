@@ -18,20 +18,21 @@ public class InMemoryTaskManager implements TaskManager {
        nextId++;
     }
 
-   protected void uppdateMapTask(Task task) {
-       simpleTask.put(task.getID(), task);
-   }
-   protected void uppdateMapSubtask(Subtask task) {
-       itemTask.put(task.getID(), task);
-   }
+    protected void uppdateMapTask(Task task) {
+        simpleTask.put(task.getID(), task);
+    }
 
-   protected void uppdateMapEpic(Epic task) {
-       collectionTask.put(task.getID(), task);
-   }
+    protected void uppdateMapSubtask(Subtask task) {
+        itemTask.put(task.getID(), task);
+    }
 
-   protected void uppdatenextId(int nextId) {
+    protected void uppdateMapEpic(Epic task) {
+        collectionTask.put(task.getID(), task);
+    }
+
+    protected void uppdatenextId(int nextId) {
         this.nextId = nextId;
-   }
+    }
 
     @Override
     public void add(Task simpletask) {
