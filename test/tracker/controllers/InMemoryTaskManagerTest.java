@@ -26,7 +26,7 @@ class InMemoryTaskManagerTest {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         taskManager.add(new Task("","",StatusTask.NEW));
         Task task = new Task("","",StatusTask.NEW);
-        taskManager.add(new Task("","",StatusTask.NEW));
+        taskManager.add(task);
         task.updateID(1);
         boolean b = true;
         for (Task task1 : taskManager.getTasks()) {
