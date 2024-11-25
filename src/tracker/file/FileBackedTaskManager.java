@@ -1,5 +1,6 @@
 package tracker.file;
 import tracker.controllers.InMemoryTaskManager;
+import tracker.exception.ManagerSaveException;
 import tracker.model.Epic;
 import tracker.model.Subtask;
 import tracker.model.Task;
@@ -45,7 +46,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ManagerSaveException("Ошибка в файле: " + filename.getName(), e);
         }
 
     }
@@ -122,7 +123,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                writer.newLine();
            }
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка в файле: " + filename.getAbsolutePath(), e);
+           throw new ManagerSaveException("Ошибка в файле: " + filename.getName(), e);
         }
     }
 
